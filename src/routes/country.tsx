@@ -26,6 +26,7 @@ interface ICountryInfo {
 
 export default function CountryPage() {
     const [countryInfo, setCountryInfo] = useState<null | ICountryInfo>(null);
+    const [countryInfoError, setCountryInfoError] = useState<any>(null);
 
     const { countryName } = useParams();
 
@@ -37,7 +38,7 @@ export default function CountryPage() {
             });
 
             if (!res.ok) {
-                return null;
+                throw res.status;
             }
 
             // Array of countries, in this case always has one country
@@ -45,8 +46,16 @@ export default function CountryPage() {
 
             return country[0];
         }
-        fetchCountries().then(result => setCountryInfo(result));
+        fetchCountries().then(result => setCountryInfo(result)).catch((err) => setCountryInfoError(err));
     }, []);
+
+    if (countryInfoError) {
+        return (
+            <Center h="100vh">
+                <Text>An unknown error occured. Code {countryInfoError}.</Text>
+            </Center>
+        )
+    }
 
     if (!countryInfo) {
         return (
