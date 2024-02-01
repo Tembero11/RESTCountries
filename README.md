@@ -1,6 +1,6 @@
 # RESTCountries
 
-A little React web app to allows you to search the REST countries API
+A little React web app that allows you to search the REST countries API.
 
 
 ### How to setup
