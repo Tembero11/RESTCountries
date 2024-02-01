@@ -1,4 +1,4 @@
-import { Button, Center, FormControl, FormLabel, Spinner } from "@chakra-ui/react";
+import { Button, Center, FormControl, FormLabel, Spinner, Text } from "@chakra-ui/react";
 import { AutoComplete, AutoCompleteGroup, AutoCompleteGroupTitle, AutoCompleteInput, AutoCompleteItem, AutoCompleteList } from "@choc-ui/chakra-autocomplete";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,7 @@ interface ICountryAutocomplete {
 export default function IndexPage() {
   // Contains all fetched countries
   const [regionsCountries, setRegionsCountries] = useState<ICountryAutocomplete | null>(null);
+  const [regionsCountriesError, setRegionsCountriesError] = useState<any>(null);
 
   const navigate = useNavigate();
 
@@ -21,7 +22,7 @@ export default function IndexPage() {
       });
 
       if (!res.ok) {
-        return null;
+        throw res.status;
       }
 
       const countries = await res.json();
@@ -40,8 +41,16 @@ export default function IndexPage() {
       }
       return regions;
     }
-    fetchCountries().then(result => setRegionsCountries(result));
+    fetchCountries().then(result => setRegionsCountries(result)).catch(err => setRegionsCountriesError(err));
   }, []);
+
+  if (regionsCountriesError) {
+    return (
+      <Center h="100vh">
+        <Text>An unknown error occured. Code {regionsCountriesError}.</Text>
+      </Center>
+    )
+  }
 
   if (!regionsCountries) {
     return (
