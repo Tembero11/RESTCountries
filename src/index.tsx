@@ -8,6 +8,7 @@ import Root from "./routes/root";
 import ErrorPage from "./error-page";
 import IndexPage from "./routes";
 import { ChakraProvider } from "@chakra-ui/react";
+import CountryPage from "./routes/country";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <IndexPage/>
+      },
+      {
+        path: "/country/:countryName",
+        element: <CountryPage/>
       }
     ]
   },
