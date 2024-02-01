@@ -30,7 +30,7 @@ interface ICountryInfo {
     png: string;
     alt: string;
   };
-  latlng: number[];
+  latlng: [number, number];
 }
 
 export default function CountryPage() {
