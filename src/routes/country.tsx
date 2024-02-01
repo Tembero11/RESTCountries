@@ -19,7 +19,6 @@ interface ICountryInfo {
         png: string;
         alt: string;
     }
-    flag: string;
 }
 
 export default function CountryPage() {
@@ -29,7 +28,8 @@ export default function CountryPage() {
 
     useEffect(() => {
         async function fetchCountries() {
-            const res = await fetch(`https://restcountries.com/v3.1/name/${countryName}`, {
+            const url = `https://restcountries.com/v3.1/name/${countryName}?fields=name,subregion,population,flags,currencies`;
+            const res = await fetch(url, {
                 method: "get"
             });
 
