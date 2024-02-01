@@ -1,9 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./routes/root";
 import ErrorPage from "./error-page";
 import IndexPage from "./routes";
@@ -13,18 +10,18 @@ import CountryPage from "./routes/country";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root/>,
-    errorElement: <ErrorPage/>,
+    element: <Root />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
-        element: <IndexPage/>
+        element: <IndexPage />,
       },
       {
         path: "/country/:countryName",
-        element: <CountryPage/>
-      }
-    ]
+        element: <CountryPage />,
+      },
+    ],
   },
 ]);
 
@@ -33,5 +30,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <ChakraProvider>
       <RouterProvider router={router} />
     </ChakraProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

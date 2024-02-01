@@ -1,5 +1,19 @@
-import { Button, Center, FormControl, FormLabel, Spinner, Text } from "@chakra-ui/react";
-import { AutoComplete, AutoCompleteGroup, AutoCompleteGroupTitle, AutoCompleteInput, AutoCompleteItem, AutoCompleteList } from "@choc-ui/chakra-autocomplete";
+import {
+  Button,
+  Center,
+  FormControl,
+  FormLabel,
+  Spinner,
+  Text,
+} from "@chakra-ui/react";
+import {
+  AutoComplete,
+  AutoCompleteGroup,
+  AutoCompleteGroupTitle,
+  AutoCompleteInput,
+  AutoCompleteItem,
+  AutoCompleteList,
+} from "@choc-ui/chakra-autocomplete";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -10,16 +24,20 @@ interface ICountryAutocomplete {
 
 export default function IndexPage() {
   // Contains all fetched countries
-  const [regionsCountries, setRegionsCountries] = useState<ICountryAutocomplete | null>(null);
+  const [regionsCountries, setRegionsCountries] =
+    useState<ICountryAutocomplete | null>(null);
   const [regionsCountriesError, setRegionsCountriesError] = useState<any>(null);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchCountries() {
-      const res = await fetch("https://restcountries.com/v3.1/all?fields=name,region", {
-        method: "get"
-      });
+      const res = await fetch(
+        "https://restcountries.com/v3.1/all?fields=name,region",
+        {
+          method: "get",
+        },
+      );
 
       if (!res.ok) {
         throw res.status;
@@ -45,7 +63,9 @@ export default function IndexPage() {
       return regions;
     }
     // Update the result to state
-    fetchCountries().then(result => setRegionsCountries(result)).catch(err => setRegionsCountriesError(err));
+    fetchCountries()
+      .then((result) => setRegionsCountries(result))
+      .catch((err) => setRegionsCountriesError(err));
   }, []);
 
   if (regionsCountriesError) {
@@ -53,7 +73,7 @@ export default function IndexPage() {
       <Center h="100vh">
         <Text>An unknown error occured. Code {regionsCountriesError}.</Text>
       </Center>
-    )
+    );
   }
 
   if (!regionsCountries) {
@@ -61,7 +81,7 @@ export default function IndexPage() {
       <Center h="100vh">
         <Spinner size="xl" />
       </Center>
-    )
+    );
   }
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -72,7 +92,6 @@ export default function IndexPage() {
     navigate(`/country/${countryName}`);
   }
 
-
   return (
     <form onSubmit={onSubmit}>
       <Center flexDir="column" gap={4} mt={8}>
@@ -81,22 +100,24 @@ export default function IndexPage() {
           <AutoComplete openOnFocus>
             <AutoCompleteInput name="country" variant="filled" />
             <AutoCompleteList>
-              {Object.entries(regionsCountries).map(([regionName, countryNames], index) => (
-                <AutoCompleteGroup key={index} showDivider>
-                  <AutoCompleteGroupTitle textTransform="capitalize">
-                    {regionName}
-                  </AutoCompleteGroupTitle>
-                  {countryNames.map((countryName, index) => (
-                    <AutoCompleteItem
-                      key={index}
-                      value={countryName}
-                      textTransform="capitalize"
-                    >
-                      {countryName}
-                    </AutoCompleteItem>
-                  ))}
-                </AutoCompleteGroup>
-              ))}
+              {Object.entries(regionsCountries).map(
+                ([regionName, countryNames], index) => (
+                  <AutoCompleteGroup key={index} showDivider>
+                    <AutoCompleteGroupTitle textTransform="capitalize">
+                      {regionName}
+                    </AutoCompleteGroupTitle>
+                    {countryNames.map((countryName, index) => (
+                      <AutoCompleteItem
+                        key={index}
+                        value={countryName}
+                        textTransform="capitalize"
+                      >
+                        {countryName}
+                      </AutoCompleteItem>
+                    ))}
+                  </AutoCompleteGroup>
+                ),
+              )}
             </AutoCompleteList>
           </AutoComplete>
         </FormControl>
@@ -104,5 +125,5 @@ export default function IndexPage() {
         <Button type="submit">Search</Button>
       </Center>
     </form>
-  )
+  );
 }
