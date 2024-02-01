@@ -46,6 +46,7 @@ export default function CountryPage() {
 
             return country[0];
         }
+        // Update the result to state
         fetchCountries().then(result => setCountryInfo(result)).catch((err) => setCountryInfoError(err));
     }, []);
 
@@ -77,6 +78,7 @@ export default function CountryPage() {
                 <Box borderRadius="100px" w={2} h={2} bgColor={"gray"}></Box>
                 <Text>Population {humanFormat(countryInfo.population)}</Text>
                 <Box borderRadius="100px" w={2} h={2} bgColor={"gray"}></Box>
+                {/* Map currencies to be e.g. "Euro (€)" */}
                 <Text>{Object.values(countryInfo.currencies).map(({ name, symbol }) => `${name} (${symbol})`).join(", ")}</Text>
             </HStack>
             <MapContainer style={{flex: 1, width: "100vw"}} center={countryInfo.latlng} zoom={5}>

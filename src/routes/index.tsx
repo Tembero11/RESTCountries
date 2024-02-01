@@ -30,17 +30,21 @@ export default function IndexPage() {
       const regions: ICountryAutocomplete = {};
 
       for (const country of countries) {
+        // Country region e.g. Europe
         const region = country.region;
         const commonName = country.name.common;
 
+        // If region is not yet created, create one
         if (!Object.hasOwn(regions, region)) {
           regions[region] = [];
         }
 
+        // Add country name to correct region
         regions[region].push(commonName);
       }
       return regions;
     }
+    // Update the result to state
     fetchCountries().then(result => setRegionsCountries(result)).catch(err => setRegionsCountriesError(err));
   }, []);
 
