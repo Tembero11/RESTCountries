@@ -1,4 +1,4 @@
-import { Box, Center, HStack, Heading, Spinner, Text, Image, AspectRatio, VStack } from "@chakra-ui/react";
+import { Box, Center, HStack, Heading, Spinner, Text, Image, VStack } from "@chakra-ui/react";
 import 'leaflet/dist/leaflet.css';
 import humanFormat from "human-format";
 import { useEffect, useState } from "react";
@@ -31,7 +31,7 @@ export default function CountryPage() {
 
     useEffect(() => {
         async function fetchCountries() {
-            const url = `https://restcountries.com/v3.1/name/${countryName}?fields=name,subregion,population,flags,currencies,latlng`;
+            const url = `https://restcountries.com/v3.1/name/${countryName}?fullText=true&fields=name,subregion,population,flags,currencies,latlng`;
             const res = await fetch(url, {
                 method: "get"
             });
@@ -55,8 +55,6 @@ export default function CountryPage() {
             </Center>
         )
     }
-
-    console.log(countryInfo.latlng);
 
     return (
         <VStack justifyContent="space-between" alignItems="center" w="100vw" h="100vh" pt={8} gap={2}>
