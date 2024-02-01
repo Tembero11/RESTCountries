@@ -62,7 +62,7 @@ export default function IndexPage() {
 
   return (
     <form onSubmit={onSubmit}>
-      <Center flexDir="column" gap={4} h="100vh">
+      <Center flexDir="column" gap={4} mt={8}>
         <FormControl maxW="350px">
           <FormLabel>Search a country</FormLabel>
           <AutoComplete openOnFocus>
