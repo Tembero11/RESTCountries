@@ -101,12 +101,12 @@ export default function CountryPage() {
         {countryInfo.name.official}
       </Heading>
       <HStack px={6}>
-        <Text>{countryInfo.subregion}</Text>
-        <Box borderRadius="100px" w={2} h={2} bgColor={"gray"}></Box>
-        <Text>Population {humanFormat(countryInfo.population)}</Text>
-        <Box borderRadius="100px" w={2} h={2} bgColor={"gray"}></Box>
+        <Text textAlign="center">{countryInfo.subregion}</Text>
+        <Box borderRadius="100px" w={2} h={2} bgColor={"gray"} display={["none", "none", "inline-block"]}></Box>
+        <Text textAlign="center">Population {humanFormat(countryInfo.population)}</Text>
+        <Box borderRadius="100px" w={2} h={2} bgColor={"gray"} display={["none", "none", "inline-block"]}></Box>
         {/* Map currencies to be e.g. "Euro (€)" */}
-        <Text>
+        <Text textAlign="center">
           {Object.values(countryInfo.currencies)
             .map(({ name, symbol }) => `${name} (${symbol})`)
             .join(", ")}
